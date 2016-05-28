@@ -159,6 +159,9 @@ return [
         // debug
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        // admin
+        Frozennode\Administrator\AdministratorServiceProvider::class,
+
     ],
 
     /*
