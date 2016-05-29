@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'title' => 'Users',
-	'single' => 'user',
+	'title' => 'Все пользователи',
+	'single' => 'пользователя',
 	'model' => 'App\User',
 	'columns' => [
 	    'id',
@@ -13,7 +13,7 @@ return [
 	],
 	'edit_fields' => [
 	    'login' => [
-	        'title' => 'login',
+	        'title' => 'Логин',
 	        'type' => 'text'
 	    ],
 	    'email' => [
@@ -21,12 +21,17 @@ return [
 	        'type' => 'text'
 	    ],
 	    'first_name' => [
-	        'title' => 'First Name',
+	        'title' => 'Имя',
 	        'type' => 'text'
 	    ],
 	    'last_name' => [
-	        'title' => 'Last Name',
+	        'title' => 'Фамилия',
 	        'type' => 'text'
 	    ],
+	    'roles' => [
+		    'type' => 'relationship',
+		    'title' => 'Роль пользователя',
+		    'name_field' => 'name', //what column or accessor on the other table you want to use to represent this object
+		],
 	],
 ];

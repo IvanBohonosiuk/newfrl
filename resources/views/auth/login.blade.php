@@ -3,15 +3,15 @@
 
 @section('content')
     <form action="{{ route('login') }}" method="post">
-        <div class="input-group">
+        <div class="form-group">
             <label for="email">E-Mail</label>
-            <input type="email" id="email" name="email">
+            <input type="email" class="form-control" id="email" name="email">
         </div>
-        <div class="input-group">
+        <div class="form-group">
             <label for="password">Пароль</label>
-            <input type="password" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password">
         </div>
         {{ csrf_field() }}
-        <button type="submit">Ввойти</button>
+        <button type="submit" class="btn btn-default">Ввойти</button>
     </form>
 @endsection

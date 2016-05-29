@@ -66,7 +66,10 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
-		'users',
+		'Пользователи' => [
+			'users',
+			'roles',
+		],
 	),
 
 	/**
