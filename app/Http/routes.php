@@ -35,3 +35,8 @@ Route::get('/logout', [
     'uses' => 'AuthController@getLogout',
     'as' => 'logout'
 ]);
+
+Route::get('/projects', [
+    'uses' => 'ProjectsController@index',
+    'as' => 'projects'
+]);
