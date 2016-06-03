@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->boolean('active')->default('0');
+            $table->integer('categories_id');
             $table->timestamp('end_date');
             $table->integer('price');
             $table->string('image');

@@ -70,6 +70,10 @@ return array(
 			'users',
 			'roles',
 		],
+		'Проекты' => [
+			'projects',
+			'project_cat',
+		],
 	),
 
 	/**
