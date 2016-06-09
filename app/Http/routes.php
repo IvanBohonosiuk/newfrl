@@ -40,3 +40,43 @@ Route::get('/projects', [
     'uses' => 'ProjectsController@index',
     'as' => 'projects'
 ]);
+
+Route::get('/project/{id}', [
+    'uses' => 'ProjectsController@show',
+    'as' => 'projects.show'
+]);
+
+Route::get('/project/create', [
+    'uses' => 'ProjectsController@create',
+    'as' => 'projects.create',
+    'middleware' => 'auth'
+]);
+
+Route::get('/project/category/{slug}', [
+    'uses' => 'ProjectsController@cat_show',
+    'as' => 'projects.category.show'
+]);
+
+Route::post('/create-bid', [
+    'uses' => 'BidsController@postCreateBid',
+    'as' => 'bid.create',
+    'middleware' => 'auth'
+]);
+
+Route::get('/delete-bid/{bid_id}', [
+    'uses' => 'BidsController@getDeleteBid',
+    'as' => 'bid.delete',
+    'middleware' => 'auth'
+]);
+
+Route::get('/dashboard', [
+    'uses' => 'UserController@getDashboard',
+    'as' => 'dashboard',
+    'middleware' => 'auth'
+]);
+
+Route::post('/dashboard/save', [
+    'uses' => 'UserController@saveDashboard',
+    'as' => 'account.save',
+    'middleware' => 'auth'
+]);

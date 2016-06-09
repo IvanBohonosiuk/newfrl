@@ -17,7 +17,6 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->boolean('active')->default('0');
-            $table->integer('categories_id');
             $table->timestamp('end_date');
             $table->integer('price');
             $table->string('image');
@@ -25,6 +24,7 @@ class CreateProjectsTable extends Migration
             $table->boolean('remote')->default('0');
             $table->integer('specialnist_id');
             $table->integer('user_id');
+            $table->integer('bid_id');
             $table->timestamps();
         });
     }

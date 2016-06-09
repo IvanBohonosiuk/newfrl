@@ -25,6 +25,11 @@ return [
 			'type' => 'relationship',
 			'name_field' => 'title'
 		],
+		'user' => [
+			'title' => 'Заказчик',
+			'type' => 'relationship',
+			'name_field' => 'login'
+		],
 	    'price' => [
 	        'title' => 'Цена',
 	        'type' => 'number',
@@ -61,8 +66,8 @@ return [
 	    'end_date' => [
 	        'title' => 'Дата окончания',
 	        'type' => 'datetime',
-	        'date_format' => 'd.m.y',
-    		'time_format' => 'H:m'
+	        'date_format' => 'd.m.yy',
+    		'time_format' => 'HH:mm'
 
 	    ],
 	],

@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('css/main.css') }}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     @yield("styles")
 
@@ -65,10 +65,12 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->first_name }} <span class="caret"></span>
+                                    <img src="/uploads/avatars/{{ Auth::user()->image }}" style="width: 25px; height: 25px; float: left; border-radius: 50%; margin: -3px 5px 0; ">
+                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-in"></i>Адмінка</a></li>
+                                    <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-user"></i>Личный кабинет</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Вихід</a></li>
                                 </ul>
                             </li>
@@ -95,6 +97,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script type="text/javascript" src="{{ URL::to('js/app.js') }}"></script>
     @yield("scripts")
 
 </body>

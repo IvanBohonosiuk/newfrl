@@ -1,0 +1,49 @@
+body {
+	font-family: 'Times New Roman', Arial, sans-serif;
+}
+
+.bids {
+	border: 1px solid #999;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	border-radius: 10px;
+}
+
+.bids .bid {
+	border-bottom: 1px solid #999;
+	padding: 20px;
+}
+
+.bids .bid:last-child {
+	border: none;
+}
+
+.bids .bid .description {
+
+}
+
+.bids .bid .price {
+	background-color: #F1BB79;
+	color: #fff;
+	padding: 2px 5px;
+	margin: 0 5px;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.bids .bid .termin {
+	background-color: #3D77FB;
+	color: #fff;
+	padding: 2px 5px;
+	margin: 0 5px;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.avatar {
+	width: 100px;
+    border-radius: 20px;
+    float: left;
+    margin: 5px 10px 5px 0;
+}

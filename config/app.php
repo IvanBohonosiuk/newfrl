@@ -162,6 +162,9 @@ return [
         // admin
         Frozennode\Administrator\AdministratorServiceProvider::class,
 
+        // avatars
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -210,6 +213,9 @@ return [
 
         // debug
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        // avatars
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

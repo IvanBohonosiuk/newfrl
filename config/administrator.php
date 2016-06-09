@@ -21,7 +21,7 @@ return array(
 	 *
 	 *  @type array
 	 */
-	'middleware' => ['web'],
+	'middleware' => ['web', 'roles'],
 
 	/**
 	 * Page title
@@ -73,6 +73,7 @@ return array(
 		'Проекты' => [
 			'projects',
 			'project_cat',
+			'bid',
 		],
 	),
 
@@ -128,7 +129,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'logout_path' => false,
+	'logout_path' => 'logout',
 
 	/**
 	 * This is the key of the return path that is sent with the redirection to your login_action. Session::get('redirect') will hold the return URL.
