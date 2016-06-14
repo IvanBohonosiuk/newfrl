@@ -21,7 +21,7 @@ return array(
 	 *
 	 *  @type array
 	 */
-	'middleware' => ['web', 'roles'],
+	'middleware' => ['web'],
 
 	/**
 	 * Page title
@@ -69,6 +69,7 @@ return array(
 		'Пользователи' => [
 			'users',
 			'roles',
+			'portfolio',
 		],
 		'Проекты' => [
 			'projects',
@@ -85,7 +86,7 @@ return array(
 	 */
 	'permission'=> function()
 	{
-		return Auth::check();
+		return Auth::user()->hasRole('Admin');
 	},
 
 	/**
@@ -108,7 +109,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => 'users',
+	'home_page' => 'projects',
 
 	/**
 	 * The route to which the user will be taken when they click the "back to site" button

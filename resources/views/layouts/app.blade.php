@@ -51,17 +51,17 @@
                 </div>
                 <div class="menu">
                     <ul class="left-menu nav navbar-nav">
-                        <li><a href="{{ url('/') }}">Головна</a></li>
-                        <li><a href="/projects">Проекти</a></li>
-                        <li><a href="#">Фрілансери</a></li>
-                        <li><a href="#">Замовники</a></li>
+                        <li><a href="{{ url('/') }}">Главная</a></li>
+                        <li><a href="/projects">Проекты</a></li>
+                        <li><a href="{{ route('freelancers') }}">Фрилансеры</a></li>
+                        <li><a href="{{ route('customers') }}">Заказчики</a></li>
                         <li><a href="#">Магазин</a></li>
-                        <li><a href="#">Чат фрілансерів</a></li>
+                        <li><a href="#">Чат фрилансеров</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Вхід</a></li>
-                            <li><a href="{{ url('/register') }}">Реєстрація</a></li>
+                            <li><a href="{{ url('/login') }}">Вход</a></li>
+                            <li><a href="{{ url('/register') }}">Регистрация</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -69,9 +69,12 @@
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-in"></i>Адмінка</a></li>
-                                    <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-user"></i>Личный кабинет</a></li>
-                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Вихід</a></li>
+                                    @if (Auth::user()->hasRole('Admin'))
+                                        <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-in"></i>Админка</a></li>
+                                    @endif
+                                    <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-tachometer"></i>Личный кабинет</a></li>
+                                    <li><a href="{{ url('/users/') }}/{{ Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Мой профиль</a></li>
+                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Выход</a></li>
                                 </ul>
                             </li>
                         @endif

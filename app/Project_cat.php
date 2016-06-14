@@ -14,6 +14,11 @@ class Project_cat extends Model
     	return $this->hasMany('App\Projects');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
     public function getActive()
     {
     	return $this->published()->get();

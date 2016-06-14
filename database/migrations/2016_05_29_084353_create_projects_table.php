@@ -22,9 +22,7 @@ class CreateProjectsTable extends Migration
             $table->string('image');
             $table->string('files');
             $table->boolean('remote')->default('0');
-            $table->integer('specialnist_id');
             $table->integer('user_id');
-            $table->integer('bid_id');
             $table->timestamps();
         });
     }

@@ -14,52 +14,57 @@
 	        	{!! $project->description !!}
 	        </div>
 	        <div class="includes">
-	        	<a href="/uploads/projects/full/{{ $project->image }}">
-	        		<img src="/uploads/projects/medium/{{ $project->image }}" />
-	        	</a>
+	        	@if ($project->image != '')
+	        		<a href="/uploads/projects/full/{{ $project->image }}">
+		        		<img src="/uploads/projects/medium/{{ $project->image }}" />
+		        	</a>
+	        	@endif
 	        </div>
 	        @include('partials.error-messages')
 	        @if (Auth::user())
-				<div class="form-bid">
-					<form role='form' action="{{ route('bid.create') }}" method="post">
-						<div class="form-group">
-							<label for="price">Стоимость</label>
-							<input type="text" name="price" id="price" class="form-control" required="required">
-						</div>
-						<div class="form-group">
-							<label for="termin">Срок выполнения</label>
-							<input type="text" name="termin" id="termin" class="form-control" required="required">
-						</div>
-						<div class="form-group">
-							<label for="description">Комментарий</label>
-							<textarea class="form-control" name="description" id="description" rows="5" required="required"></textarea>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="private" value="1"> Скрыть заявку от других?
-							</label>
-						</div>
-						<input type="hidden" name="project_id" value="{{ $project->id }}">
-						<input type="hidden" name="_token" value="{{ Session::token() }}">
-						<button class="btn btn-primary" type="submit">Добавить</button>
-					</form>
-				</div>
+		        @if (Auth::user()->hasRole('Freelancer'))
+		        	<div class="form-bid">
+						<form role='form' action="{{ route('bid.create') }}" method="post">
+							<div class="form-group">
+								<label for="price">Стоимость</label>
+								<input type="text" name="price" id="price" class="form-control" required="required">
+							</div>
+							<div class="form-group">
+								<label for="termin">Срок выполнения</label>
+								<input type="text" name="termin" id="termin" class="form-control" required="required">
+							</div>
+							<div class="form-group">
+								<label for="description">Комментарий</label>
+								<textarea class="form-control" name="description" id="description" rows="5" required="required"></textarea>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="private" value="1"> Скрыть заявку от других?
+								</label>
+							</div>
+							<input type="hidden" name="project_id" value="{{ $project->id }}">
+							<input type="hidden" name="_token" value="{{ Session::token() }}">
+							<button class="btn btn-primary" type="submit">Добавить</button>
+						</form>
+					</div>
+		        @endif
 			@endif
 			<div class="bids">
 				@foreach ($bids as $bid)
 					@if ($project->id == $bid->project->id)
-						@if ($bid->private == 0)
+						@if ($bid->private == 0 || Auth::user() == $project->user || Auth::user() == $bid->user)
 							<div class="bid" >
-								<p class="description">{!! $bid->description !!}</p>
 								<p class="price pull-right"> {{ $bid->price }} грн.</p>
 								<p class="termin pull-right"> {{ $bid->termin }} дня</p>
 								<div class="meta">
-									<p class="user">{{ $bid->user->first_name }}</p>
+									<a href="/users/{{ $bid->user->id }}"><img src="/uploads/avatars/{{ $bid->user->image }}" class="avatar bid_avatar"></a>
+									<a href="/users/{{ $bid->user->id }}" class="user">{{ $bid->user->first_name }} {{ $bid->user->last_name }}</a>
 									<p class="date">{{ $bid->created_at }}</p>
 								</div>
+								<p class="description">{{ $bid->description }}</p>
 								<div class="control">
 									@if (Auth::user() == $project->user)
-										<a href="#">Выбрать исполнителем</a>
+										<a href="{{ route('project.use_freelancer') }}">Выбрать исполнителем</a>
 									@endif
 									@if (Auth::user() == $bid->user)
 										<a href="#" class="btn-edit">Редактировать ставку</a>
@@ -67,7 +72,15 @@
 									@endif
 								</div>
 							</div>
-
+						@else
+							<div class="bid" >
+								<div class="private_bid">
+									<span style="line-height: 75px; ">
+										<i class="fa fa-lock with-tooltip" title="" data-original-title="Фрилансер отключил публичный показ своей ставки на этот проект"></i> 
+										ставка скрыта фрилансером
+									</span>
+								</div>
+							</div>
 						@endif
 					@endif
 				@endforeach
@@ -75,8 +88,8 @@
        </div>
 		<div class="col-md-3">
 			<h2>Заказчик</h2>
-			<img src="/uploads/avatars/{{ $project->user->image }}" class="avatar">
-			<p>{{ $project->user->first_name }} {{ $project->user->last_name }} </p>
+			<a href="/users/{{ $project->user->id }}"><img src="/uploads/avatars/{{ $project->user->image }}" class="avatar"></a>
+			<a href="/users/{{ $project->user->id }}"><p>{{ $project->user->first_name }} {{ $project->user->last_name }}</p></a>
 			
 		</div>
 	</div>

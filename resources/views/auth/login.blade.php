@@ -12,6 +12,6 @@
             <input type="password" class="form-control" id="password" name="password">
         </div>
         {{ csrf_field() }}
-        <button type="submit" class="btn btn-default">Ввойти</button>
+        <button type="submit" class="btn btn-default">Войти</button>
     </form>
 @endsection

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Projects extends Model
 {
 
-    protected $table = 'projects';
-
 	public function categories()
     {
     	return $this->belongsToMany('App\Project_cat');
@@ -26,7 +24,9 @@ class Projects extends Model
 
     public function getActive()
     {
-    	return $this->published()->get();
+    	return $this->published()
+            ->order()
+            ->get();
     }
 
     public function getById($id)
@@ -43,5 +43,10 @@ class Projects extends Model
     public function scopeId($query, $id)
     {
         $query->where(['id'=>$id]);
+    }
+
+    public function scopeOrder($query)
+    {
+        $query->orderBy('created_at', 'desc');
     }
 }

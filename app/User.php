@@ -13,12 +13,22 @@ class User extends Authenticatable
 
     public function projects()
     {
-        return $this->belongsToMany('App\Projects');
+        return $this->hasMany('App\Projects');
     }
 
     public function bids()
     {
         return $this->hasMany('App\Bid');
+    }
+
+    public function portfolios()
+    {
+        return $this->hasMany('App\Portfolio');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Project_cat');
     }
     
     public function hasAnyRole($roles)
@@ -43,5 +53,27 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function getById($id)
+    {
+        return $this->id($id)
+            ->firstOrFail();
+    }
+
+    public function getOrder()
+    {
+        return $this->order()
+            ->get();
+    }
+
+    public function scopeId($query, $id)
+    {
+        $query->where(['id'=>$id]);
+    }
+
+    public function scopeOrder($query)
+    {
+        $query->orderBy('created_at', 'desc');
     }
 }

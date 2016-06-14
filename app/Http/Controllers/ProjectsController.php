@@ -30,8 +30,21 @@ class ProjectsController extends Controller
     	return view('projects.show', $this->data);
     }
 
-    public function create(Request $request)
+    public function createForm(Project_cat $cats)
     {
+        $this->data['cats'] = $cats->getActive();
+        return view('projects.create', $this->data);
+    }
+
+    public function create(Request $request, Projects $projects)
+    {
+
+        $this->validate($request, [
+            'title' => 'required',
+            'end_date' => 'required',
+            'description' => 'required|max:1000'
+        ]);
+
     	$project = new Projects;
 
         $project->title = $request['title'];
@@ -41,6 +54,8 @@ class ProjectsController extends Controller
         if (isset($request['remote'])) {
             $project->remote = $request['remote'];
         }
+        $project->user_id = $request['user_id'];
+        $projects->categories();
 
         if ($request->user()->projects()->save($project)) {
             $message = 'Проект опубликован успешно!';
@@ -59,5 +74,10 @@ class ProjectsController extends Controller
         $this->data['projects_cat'] = $cat->getCategory($slug);
 
     	return view('projects.cat', $this->data);
+    }
+
+    public function use_freelancer()
+    {
+        return redirect()->back()->with(['message' => $message]);
     }
 }

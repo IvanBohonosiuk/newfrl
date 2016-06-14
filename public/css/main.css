@@ -47,3 +47,25 @@ body {
     float: left;
     margin: 5px 10px 5px 0;
 }
+
+.private_bid {
+	text-align: center;
+}
+
+.bid_avatar {
+	width: 50px;
+}
+
+.freelancer_avartar {
+	width: 100%;
+	margin: 10px 0;
+}
+
+.freelancer a h3, .customers a h3 {
+	margin: 0 10px;
+	text-align: center;
+}
+
+.add_work {
+	margin-top: -45px;
+}

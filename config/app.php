@@ -165,6 +165,9 @@ return [
         // avatars
         Intervention\Image\ImageServiceProvider::class,
 
+        // editor
+        Ktquez\Tinymce\TinymceServiceProvider::class,
+
     ],
 
     /*

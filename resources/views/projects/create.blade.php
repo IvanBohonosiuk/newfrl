@@ -6,9 +6,8 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<form action="{{ route('projects.create') }}" method="POST" role="form">
-				<legend>Создать проект</legend>
-			
+			<h1 style="text-align: center; ">Создать проект</h1>
+			<form action="{{ route('project.create.save') }}" method="POST" role="form">
 				<div class="form-group">
 					<label for="title">Название проекта</label>
 					<input type="text" class="form-control" id="title" name="title" placeholder="Название проекта">
@@ -16,8 +15,15 @@
 				
 				<div class="form-group">
 					<label for="description">Описание проекта</label>
-					<textarea name="description" id="description" name="description" class="form-control" rows="5" required="required"></textarea>
+					<textarea name="description" id="description" class="form-control editor" rows="5"></textarea>
 				</div>
+
+				<select name="cat_id" id="cat_id" class="form-control">
+					<option value="">Выберите категорию</option>
+					@foreach ($cats as $cat)
+						<option value="{{ $cat->id }}">{{ $cat->title }}</option>
+					@endforeach
+				</select>
 				
 				<div class="form-group">
 					<label for="end_date">Актуален до</label>
@@ -38,12 +44,14 @@
 					</div>
 				</div>
 
+				<input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
+
 				<input type="hidden" name="_token" id="token" class="form-control" value="{{ Session::token() }}">
-
 				<button type="submit" class="btn btn-primary">Опубликовать проект</button>
-
 			</form>
 		</div>
 	</div>
+	
 
+@include('tinymce::tpl')
 @stop

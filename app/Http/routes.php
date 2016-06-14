@@ -46,10 +46,16 @@ Route::get('/project/{id}', [
     'as' => 'projects.show'
 ]);
 
-Route::get('/project/create', [
+Route::get('/projects/create', [
+    'uses' => 'ProjectsController@createForm',
+    'as' => 'project.create',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
+]);
+
+Route::post('/projects/create/save', [
     'uses' => 'ProjectsController@create',
-    'as' => 'projects.create',
-    'middleware' => 'auth'
+    'as' => 'project.create.save'
 ]);
 
 Route::get('/project/category/{slug}', [
@@ -60,13 +66,15 @@ Route::get('/project/category/{slug}', [
 Route::post('/create-bid', [
     'uses' => 'BidsController@postCreateBid',
     'as' => 'bid.create',
-    'middleware' => 'auth'
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
 ]);
 
 Route::get('/delete-bid/{bid_id}', [
     'uses' => 'BidsController@getDeleteBid',
     'as' => 'bid.delete',
-    'middleware' => 'auth'
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
 ]);
 
 Route::get('/dashboard', [
@@ -75,8 +83,61 @@ Route::get('/dashboard', [
     'middleware' => 'auth'
 ]);
 
-Route::post('/dashboard/save', [
-    'uses' => 'UserController@saveDashboard',
-    'as' => 'account.save',
+Route::post('/dashboard/save_basic', [
+    'uses' => 'UserController@saveBasicProfile',
+    'as' => 'account.save.basic',
     'middleware' => 'auth'
+]);
+
+Route::post('/dashboard/save_image', [
+    'uses' => 'UserController@saveImageProfile',
+    'as' => 'account.save.image',
+    'middleware' => 'auth'
+]);
+
+Route::post('/dashboard/save_contacts', [
+    'uses' => 'UserController@saveContactsProfile',
+    'as' => 'account.save.contacts',
+    'middleware' => 'auth'
+]);
+
+Route::post('/dashboard/save_pay', [
+    'uses' => 'UserController@savePayProfile',
+    'as' => 'account.save.pay',
+    'middleware' => 'auth'
+]);
+
+Route::get('/users/{id}', [
+    'uses' => 'UserController@getUser'
+]);
+
+Route::get('/freelancers', [
+	'uses' => 'UserController@getFreelancers',
+	'as' => 'freelancers'
+]);
+
+Route::get('/customers', [
+	'uses' => 'UserController@getCustomers',
+	'as' => 'customers'
+]);
+
+Route::get('/portfolio', [
+	'uses' => 'UserController@getFormPortfolio',
+	'as' => 'portfolio.add',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Freelancer']
+]);
+
+Route::post('/portfolio/save', [
+	'uses' => 'UserController@savePortfolio',
+	'as' => 'portfolio.save',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Freelancer']
+]);
+
+Route::post('/projects/use_freelancer', [
+    'uses' => 'ProjectsController@use_freelancer',
+    'as' => 'project.use_freelancer',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
 ]);

@@ -21,22 +21,22 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthday');
-            $table->string('image');
-            $table->integer('phone');
+            $table->string('image')->default('default.jpg');
+            $table->string('phone');->nullable()
             $table->text('about');
             $table->text('citate');
             $table->string('status');
             $table->string('web-site');
             $table->string('icq');
             $table->string('skype');
-            $table->integer('pay_card_pb');
-            $table->integer('pay_card_2');
-            $table->integer('webmoney_id');
-            $table->integer('wmu');
-            $table->integer('wmr');
-            $table->integer('wmz');
-            $table->string('ee');
-            $table->string('okpay');
+            $table->string('pay_card_pb');->nullable()
+            $table->string('pay_card_2');->nullable()
+            $table->string('webmoney_id');->nullable()
+            $table->string('wmu');->nullable()
+            $table->string('wmr');->nullable()
+            $table->string('wmz');->nullable()
+            $table->string('ee');->nullable()
+            $table->string('okpay');->nullable()
             $table->text('resume');
             $table->rememberToken();
             $table->timestamps();
