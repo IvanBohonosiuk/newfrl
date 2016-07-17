@@ -23,6 +23,12 @@ class Bid extends Model
 			->firstOrFail();
 	}
 
+	public function getByProjectId($id)
+	{
+		return $this->projectId($id)
+			->firstOrFail();
+	}
+
 	public function getOrder()
 	{
 		return $this->order()
@@ -37,6 +43,11 @@ class Bid extends Model
     public function scopeOrder($query)
     {
     	$query->orderBy('created_at', 'desc');
+    }
+
+    public function scopeProjectId($query, $id)
+    {
+    	$query->where(['project_id'=>$id]);
     }
 
 }

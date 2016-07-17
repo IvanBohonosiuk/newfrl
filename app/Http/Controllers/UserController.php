@@ -11,6 +11,7 @@ use App\User;
 use Image;
 use App\Portfolio;
 use App\Project_cat;
+use App\FlReview;
 
 class UserController extends Controller
 {
@@ -77,9 +78,10 @@ class UserController extends Controller
        return redirect()->back();
     }
 
-    public function getUser($id, User $user)
+    public function getUser($id, User $user, FlReview $reviews)
     {
         $this->data['user'] = $user->getById($id);
+        $this->data['reviews'] = $reviews->getOrder();
         return view('users.single_user', $this->data);
     }
 
@@ -139,15 +141,44 @@ class UserController extends Controller
         $portfolio->name = $request['name'];
         $portfolio->url = $urls;
         $portfolio->price = $request['price'];
+        $portfolio->description = $request['description'];
         if ($request->file('image')) {
             $portfolio->image = $filename;
         }
-        $portfolio->description = $request['description'];
 
         if ($request->user()->portfolios()->save($portfolio)) {
             $message = 'Проект опубликован успешно!';
         } else {
             $message = 'Произошла ошыбка!';
+        }
+
+        return redirect()->back()->with(['message' => $message]);
+    }
+
+    public function sendReview($id, User $user)
+    {
+        $this->data['user'] = $user->getById($id);
+        return view('users.add_review', $this->data);
+    }
+
+    public function saveReview(Request $request)
+    {
+        $this->validate($request, [
+            'type_review' => 'required',
+            'content' => 'required'
+        ]);
+
+        $review = new Review;
+
+        $review->type_review = $request->type_review;
+        $review->content = $request->content;
+        $review->freelancer_id = $request->freelancer_id;
+        $review->customer_id = $request->customer_id;
+
+        if ($review->save()) {
+            $message = 'Отзыв отправлен успешно!';
+        } else {
+            $message = 'Произошла ошыбка';
         }
 
         return redirect()->back()->with(['message' => $message]);

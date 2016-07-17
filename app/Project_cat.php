@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Project_cat extends Model
 {
 
-	protected $table = 'project_cats';
-
     public function project()
     {
     	return $this->hasMany('App\Projects');
@@ -24,15 +22,15 @@ class Project_cat extends Model
     	return $this->published()->get();
     }
 
-    public function scopePublished($query)
-    {
-    	$query->where(['active'=>1]);
-    }
-
     public function getBySlug($slug)
     {
         return $this->slug($slug)
             ->firstOrFail();
+    }
+
+    public function scopePublished($query)
+    {
+        $query->where(['active'=>1]);
     }
 
     public function scopeSlug($query, $slug)

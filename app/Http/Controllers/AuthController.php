@@ -38,7 +38,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request['password']);
         $user->save();
 
-        $user->roles()->attach(Role::where('name', 'User')->first());
+        $user->roles()->attach(Role::where('name', $request['roles'])->first());
         
         Auth::login($user);
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
     public function getLogout()
     {
         Auth::logout();
-        
+
         return redirect()->back();
     }
 }

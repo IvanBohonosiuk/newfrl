@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +22,7 @@
 
     <style>
         body {
-            font-family: 'Lato';
+            font-family: 'Comfortaa';
         }
 
         .fa-btn {
@@ -54,9 +55,12 @@
                         <li><a href="{{ url('/') }}">Главная</a></li>
                         <li><a href="/projects">Проекты</a></li>
                         <li><a href="{{ route('freelancers') }}">Фрилансеры</a></li>
-                        <li><a href="{{ route('customers') }}">Заказчики</a></li>
                         <li><a href="#">Магазин</a></li>
-                        <li><a href="#">Чат фрилансеров</a></li>
+                        @if (Auth::user())
+                            @if (Auth::user()->hasRole('Freelancer'))
+                                <li><a href="#">Чат фрилансеров</a></li>
+                            @endif
+                        @endif    
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (Auth::guest())

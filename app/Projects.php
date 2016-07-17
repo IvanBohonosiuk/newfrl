@@ -12,6 +12,11 @@ class Projects extends Model
     	return $this->belongsToMany('App\Project_cat');
     }
 
+    public function freelancer()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

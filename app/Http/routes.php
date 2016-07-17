@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('main');
+Route::get('/', [
+    'uses' => 'AppController@getIndex',
+    'as' => 'home'
+]);
 
 Route::get('/register', [
     'uses' => 'AuthController@getRegisterPage',
@@ -67,14 +68,14 @@ Route::post('/create-bid', [
     'uses' => 'BidsController@postCreateBid',
     'as' => 'bid.create',
     'middleware' => ['auth', 'roles'],
-    'roles' => ['Admin', 'Customer']
+    'roles' => ['Admin', 'Freelancer']
 ]);
 
 Route::get('/delete-bid/{bid_id}', [
     'uses' => 'BidsController@getDeleteBid',
     'as' => 'bid.delete',
     'middleware' => ['auth', 'roles'],
-    'roles' => ['Admin', 'Customer']
+    'roles' => ['Admin', 'Freelancer']
 ]);
 
 Route::get('/dashboard', [
@@ -108,7 +109,8 @@ Route::post('/dashboard/save_pay', [
 ]);
 
 Route::get('/users/{id}', [
-    'uses' => 'UserController@getUser'
+    'uses' => 'UserController@getUser',
+    'as' => 'user.show'
 ]);
 
 Route::get('/freelancers', [
@@ -135,9 +137,35 @@ Route::post('/portfolio/save', [
     'roles' => ['Admin', 'Freelancer']
 ]);
 
-Route::post('/projects/use_freelancer', [
+Route::post('/projects/{id}/use_freelancer', [
     'uses' => 'ProjectsController@use_freelancer',
     'as' => 'project.use_freelancer',
     'middleware' => ['auth', 'roles'],
     'roles' => ['Admin', 'Customer']
+]);
+
+Route::post('/projects/{id}/completed', [
+    'uses' => 'ProjectsController@completed',
+    'as' => 'project.completed',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
+]);
+
+Route::post('/projects/{id}/canceled', [
+    'uses' => 'ProjectsController@canceled',
+    'as' => 'project.canceled',
+    'middleware' => ['auth', 'roles'],
+    'roles' => ['Admin', 'Customer']
+]);
+
+Route::get('/users/{id}/create_review', [
+    'uses' => 'UserController@sendReview',
+    'as' => 'user.review',
+    'middleware' => 'auth'
+]);
+
+Route::post('/user/review/save', [
+    'uses' => 'UserController@saveReview',
+    'as' => 'user.review.save',
+    'middleware' => 'auth'
 ]);

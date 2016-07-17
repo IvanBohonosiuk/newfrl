@@ -56,6 +56,11 @@
 					@if ($user->hasRole('Customer'))
 						<div role="tabpanel" class="tab-pane" id="project">
 							<h2>Проекты</h2>
+							@if (Auth::user())
+								@if (Auth::user()->id == $user->id)
+									<a href="{{ route('project.create') }}" class="btn btn-primary pull-right">Добавить проект</a>
+								@endif
+							@endif
 							@foreach ($user->projects as $project)
 								<div class="prj">
 									<a href="{{ route('projects.show', ['id' => $project->id]) }}">{{ $project->title }}</a>
@@ -106,6 +111,23 @@
 					@endif
 					<div role="tabpanel" class="tab-pane" id="review">
 						<h2>Отзивы</h2>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								@foreach ($reviews as $review)
+									@if ($user->hasRole('Freelancer'))
+										@if ($review->freelancer_id == $user->id)
+											<div class="review">
+												<div class="content">
+													{!! $review->content !!}
+												</div>
+												<div class="meta">
+												</div>
+											</div>
+										@endif
+									@endif
+								@endforeach
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

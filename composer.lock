@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bb432988dcd0ea23e60e74f9d4100662",
-    "content-hash": "97c35d6020a4ffb33f86d6d485392af0",
+    "hash": "a309498b6cb7412e6985791210de0aae",
+    "content-hash": "09e9c13fce79fe8f2dcd5fededde08df",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -366,6 +366,53 @@
                 "uri"
             ],
             "time": "2016-04-13 19:56:01"
+        },
+        {
+            "name": "h-zone/vk-geo-collector",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h-zone/vk-geo-collector.git",
+                "reference": "84a0b579813bf549e33f70a35ef34d0851ff9f3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h-zone/vk-geo-collector/zipball/84a0b579813bf549e33f70a35ef34d0851ff9f3a",
+                "reference": "84a0b579813bf549e33f70a35ef34d0851ff9f3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hzone\\VkGeoCollector\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stanislav Kabin",
+                    "email": "me@h-zone.ru"
+                }
+            ],
+            "description": "Collect GEO data from social network VKontakte: Countries, Regions, Cities, etc.",
+            "homepage": "https://github.com/h-zone/vk-geo-collector",
+            "keywords": [
+                "geo-collector",
+                "h-zone",
+                "hzone",
+                "vk-geo",
+                "vk-geo-collector"
+            ],
+            "time": "2016-05-10 11:15:27"
         },
         {
             "name": "intervention/image",

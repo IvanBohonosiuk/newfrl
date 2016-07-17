@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Projects;
 use App\Project_cat;
+use App\Project_cat_project;
 use App\Bid;
+use App\User;
 
 class ProjectsController extends Controller
 {
@@ -26,6 +28,7 @@ class ProjectsController extends Controller
     {
     	$this->data['project'] = $project->getById($id);
         $this->data['bids'] = $bids->getOrder();
+        // $this->data['project_bids'] = $bids->getByProjectId($id);
 
     	return view('projects.show', $this->data);
     }
@@ -36,7 +39,7 @@ class ProjectsController extends Controller
         return view('projects.create', $this->data);
     }
 
-    public function create(Request $request, Projects $projects)
+    public function create(Request $request)
     {
 
         $this->validate($request, [
@@ -55,13 +58,14 @@ class ProjectsController extends Controller
             $project->remote = $request['remote'];
         }
         $project->user_id = $request['user_id'];
-        $projects->categories();
 
         if ($request->user()->projects()->save($project)) {
             $message = 'Проект опубликован успешно!';
         } else {
             $message = 'Произошла ошыбка!';
         }
+
+        $project->categories()->attach(Project_cat_project::where('project_cat_id', $request['cat_id'])->first());
 
         return redirect()->back()->with(['message' => $message]);
     }
@@ -76,8 +80,56 @@ class ProjectsController extends Controller
     	return view('projects.cat', $this->data);
     }
 
-    public function use_freelancer()
+    public function use_freelancer(Request $request, $id, User $user)
     {
+        $freelancer = Projects::find($id);
+
+        $freelancer->freelancer_id = $request->freelancer_id;
+        $freelancer->status = $request->status;
+
+        if ($freelancer->save()) {
+            $message = 'Исполнитель выбран успешно!';
+            
+        } else {
+            $message = 'Произошла ошыбка!';
+        }
+
+        return redirect()->back()->with(['message' => $message]);
+    }
+
+    public function completed(Request $request, $id, User $user)
+    {
+        $freelancer = Projects::find($id);
+
+        $freelancer->freelancer_id = $request->freelancer_id;
+        $freelancer->status = $request->status;
+
+        if ($freelancer->save()) {
+            $message = 'Задание выполнено успешно!';
+            
+        } else {
+            $message = 'Произошла ошыбка!';
+            
+        }
+
+        return redirect()->back()->with(['message' => $message]);
+    }
+
+    public function canceled(Request $request, $id, User $user)
+    {
+        $freelancer = Projects::find($id);
+
+        $freelancer->freelancer_id = $request->freelancer_id;
+        $freelancer->status = $request->status;
+
+        if ($freelancer->save()) {
+            $message = 'Задание не выполнено!';
+            
+        } else {
+            $message = 'Произошла ошыбка!';
+            
+        }
+
         return redirect()->back()->with(['message' => $message]);
     }
 }

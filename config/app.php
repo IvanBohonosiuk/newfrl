@@ -168,6 +168,9 @@ return [
         // editor
         Ktquez\Tinymce\TinymceServiceProvider::class,
 
+        // location
+        Hzone\VkGeoCollector\VkGeoCollectorServiceProvider::class,
+
     ],
 
     /*

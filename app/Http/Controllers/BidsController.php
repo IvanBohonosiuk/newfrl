@@ -40,10 +40,13 @@ class BidsController extends Controller
     public function getDeleteBid($bid_id)
     {
     	$bid = Bid::where('id', $bid_id)->first();
+        
     	if (Auth::user() != $bid->user) {
     		return redirect()->back()->with(['message' => 'Недостаточно прав.']);
     	}
+
     	$bid->delete();
+
     	return redirect()->back()->with(['message' => 'Ставка удалена.']);
     }
 }

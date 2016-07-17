@@ -10,7 +10,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "frozennode/administrator": " 5.*",
         "intervention/image": "^2.3",
-        "ktquez/laravel-tinymce": "^1.0"
+        "ktquez/laravel-tinymce": "^1.0",
+        "h-zone/vk-geo-collector": "^0.2.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

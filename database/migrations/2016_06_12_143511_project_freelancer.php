@@ -14,7 +14,7 @@ class ProjectFreelancer extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->string('status')->default('Open');
-            $table->integer('freelancer_id');
+            $table->integer('freelancer_id')->default('0');
         });
     }
 

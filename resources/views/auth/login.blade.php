@@ -2,6 +2,7 @@
 @section('title') Вход @stop
 
 @section('content')
+    @include('partials.error-messages')
     <form action="{{ route('login') }}" method="post">
         <div class="form-group">
             <label for="email">E-Mail</label>

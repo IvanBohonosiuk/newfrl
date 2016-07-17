@@ -9,6 +9,7 @@ return [
 	    'title',
 	    'description',
 	    'price',
+	    'active',
 	    'end_date'
 	],
 	'edit_fields' => [

@@ -30,6 +30,21 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Project_cat');
     }
+
+    public function ispolnitel()
+    {
+    	return $this->hasMany('App\Projects');
+    }
+
+    public function rating()
+    {
+    	return $this->hasOne('App\UserRating');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
     
     public function hasAnyRole($roles)
     {
