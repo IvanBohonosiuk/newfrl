@@ -12,6 +12,7 @@ use Image;
 use App\Portfolio;
 use App\Project_cat;
 use App\FlReview;
+use App\UserRating;
 
 class UserController extends Controller
 {
@@ -168,12 +169,22 @@ class UserController extends Controller
             'content' => 'required'
         ]);
 
-        $review = new Review;
+        // $user = User::first();
+
+        $rating = new UserRating;
+        
+        $rating->rating = $request->user_rating;
+        $rating->user_id = Auth::id();
+        $rating->rateable_id = $request->rateable_user_id;
+
+        $rating->save();
+
+        $review = new FlReview;
 
         $review->type_review = $request->type_review;
         $review->content = $request->content;
-        $review->freelancer_id = $request->freelancer_id;
-        $review->customer_id = $request->customer_id;
+        $review->user_id = Auth::id();
+        $review->rateable_id = $request->rateable_user_id;
 
         if ($review->save()) {
             $message = 'Отзыв отправлен успешно!';

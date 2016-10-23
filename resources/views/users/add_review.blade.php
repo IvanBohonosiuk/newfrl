@@ -27,14 +27,57 @@
 					</div>
 				</div>
 
-				@if ($user->hasRole('Freelancer'))
-					<input type="hidden" name="freelancer_id" id="freelancer_id" class="form-control" value="{{ $user->id }}">
-					<input type="hidden" name="customer_id" id="customer_id" class="form-control" value="{{Auth::user()->id}}">
-				@else
-					<input type="hidden" name="freelancer_id" id="freelancer_id" class="form-control" value="{{Auth::user()->id}}">
-					<input type="hidden" name="customer_id" id="customer_id" class="form-control" value="{{ $user->id }}">
-				@endif
+				<div class="form-group">
+					<label for="user_rating">Оценка работы</label>
+					<div class="radio">
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="-5">
+							-5
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="-4">
+							-4
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="-3">
+							-3
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="-2">
+							-2
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="-1">
+							-1
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="0"  checked="checked">
+							0
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="1">
+							1
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="2">
+							2
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="3">
+							3
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="4">
+							4
+						</label>
+						<label>
+							<input type="radio" name="user_rating" id="user_rating" value="5">
+							5
+						</label>
+					</div>
+				</div>
 
+				<input type="hidden" name="rateable_user_id" id="rateable_user_id" value="{{ $user->id }}">
 				<input type="hidden" name="_token" id="token" class="form-control" value="{{ Session::token() }}">
 
 				<button type="submit" class="btn btn-success">Оставыть отзыв</button>

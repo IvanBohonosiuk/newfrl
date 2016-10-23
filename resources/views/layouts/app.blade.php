@@ -13,9 +13,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Comfortaa:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('css/main.css') }}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     @yield("styles")
@@ -31,7 +33,85 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default">
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="#" data-activates="slide-out" class="button-collapse left hide-on-large-only"><i class="material-icons">menu</i></a>
+            <a href="{{ url('/') }}" class="brand-logo center">ОРГАНАЙЗЕР</a>
+            <a href="#" data-activates="slide-out2" class="button-collapse right hide-on-large-only"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+                <li><a href="{{ url('/') }}">Главная</a></li>
+                <li><a href="/projects">Проекты</a></li>
+                <li><a href="{{ route('freelancers') }}">Фрилансеры</a></li>
+                <li><a href="#">Магазин</a></li>
+                @if (Auth::user())
+                    @if (Auth::user()->hasRole('Freelancer'))
+                        <li><a href="#">Чат фрилансеров</a></li>
+                    @endif
+                @endif
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                @if (Auth::guest())
+                    <li><a href="{{ url('/login') }}">Вход</a></li>
+                    <li><a href="{{ url('/register') }}">Регистрация</a></li>
+                @else
+                    <ul id="dropdown1" class="dropdown-content">
+                        @if (Auth::user()->hasRole('Admin'))
+                            <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-in"></i>Админка</a></li>
+                            <li class="divider"></li>
+                        @endif
+                        <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-tachometer"></i>Личный кабинет</a></li>
+                        <li><a href="{{ url('/users/') }}/{{ Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Мой профиль</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Выход</a></li>
+                    </ul>
+                    <li class="dropdown">
+                        <a href="#!" class="dropdown-button" data-activates="dropdown1">
+                            <img class="circle responsive-img" src="/uploads/avatars/{{ Auth::user()->image }}" style="width: 40px; float: left; margin: 12px 10px; ">
+                            <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </nav>
+
+    <ul id="slide-out" class="side-nav">
+        <li><a href="{{ url('/') }}">Главная</a></li>
+        <li><a href="/projects">Проекты</a></li>
+        <li><a href="{{ route('freelancers') }}">Фрилансеры</a></li>
+        <li><a href="#">Магазин</a></li>
+        @if (Auth::user())
+            @if (Auth::user()->hasRole('Freelancer'))
+                <li><a href="#">Чат фрилансеров</a></li>
+            @endif
+        @endif
+    </ul>
+    <ul id="slide-out2" class="side-nav">
+        @if (Auth::guest())
+            <li><a href="{{ url('/login') }}">Вход</a></li>
+            <li><a href="{{ url('/register') }}">Регистрация</a></li>
+        @else
+            <li>
+                <div class="userView">
+                    <img class="background" src="/img/office.jpg">
+                    <a href="{{ route('dashboard') }}">
+                        <img class="circle responsive-img" src="/uploads/avatars/{{ Auth::user()->image }}" >
+                    </a>
+                    <a href="#!name"><span class="white-text name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span></a>
+                </div>
+            </li>
+            @if (Auth::user()->hasRole('Admin'))
+                <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-in"></i>Админка</a></li>
+                <li class="divider"></li>
+            @endif
+            <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-tachometer"></i>Личный кабинет</a></li>
+            <li><a href="{{ url('/users/') }}/{{ Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Мой профиль</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Выход</a></li>
+        @endif
+    </ul>
+    {{-- <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
 
@@ -88,7 +168,7 @@
 
             
         </div>
-    </nav>
+    </nav> --}}
 
     <div class="container">
         @yield('content')
@@ -102,10 +182,12 @@
       <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    <script type="text/javascript" src="{{ URL::to('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('js/jquery.maskedinput.min.js') }}"></script>
     @yield("scripts")
+    <script type="text/javascript" src="{{ URL::to('js/app.js') }}"></script>
 
 </body>
 </html>

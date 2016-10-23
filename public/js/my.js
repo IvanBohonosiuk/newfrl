@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
 	var $container = $('.isotope');
 
@@ -14,4 +14,5 @@ $(document).ready(function () {
 		$(this).addClass('btn-success');
 		return false;
 	});
+
 });

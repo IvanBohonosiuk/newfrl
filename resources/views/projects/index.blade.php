@@ -2,7 +2,7 @@
 @section('title') Проекты @stop
 @section('content')
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col s12 m3 l3">
 			<h2>Специальность</h2>
 			<ul class="cats">
 				@foreach ($cats as $cat)
@@ -10,21 +10,21 @@
 				@endforeach
 			</ul>
 		</div>
-		<div class="col-md-9">
+		<div class="col s12 m9 l9">
 			<h2>Список проектов</h2>
 			@if (Auth::user())
 				@if (Auth::user()->hasRole('Customer'))
-					<a href="{{ route('project.create') }}" class="pull-right btn btn-primary prj_create_proect">Создать проект</a>
+					<a href="{{ route('project.create') }}" class="right btn btn-primary prj_create_proect">Создать проект</a>
 				@endif
 			@endif
 			@foreach ($projects as $project)
-				<div class="prj">
+				<div class="prj card-panel hoverable">
 					<a href="{{ route('projects.show', ['id' => $project->id]) }}" class="title">{{ $project->title }}</a>
-					<p class="price pull-right">${{ $project->price }}</p>
+					<p class="price right">${{ $project->price }}</p>
 					<div class="meta">
-						<p class="status pull-left">{{ $project->status }}</p>
+						<p class="status left">{{ $project->status }}</p>
 						@if ($project->remote == 1)
-							<p class="remote pull-right">Удаленная</p>
+							<p class="remote right">Удаленная</p>
 						@endif
 						<div class="user">
 							<a href="{{ route('user.show', $project->user->id) }}"><img src="/uploads/avatars/{{ $project->user->image }}" class="avatar project_avatar"></a>

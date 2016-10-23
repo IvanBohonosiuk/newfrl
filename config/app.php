@@ -171,6 +171,9 @@ return [
         // location
         Hzone\VkGeoCollector\VkGeoCollectorServiceProvider::class,
 
+        // rating users
+        // willvincent\Rateable\RateableServiceProvider::class,
+
     ],
 
     /*

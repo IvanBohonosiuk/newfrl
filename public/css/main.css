@@ -2,6 +2,23 @@ body {
 	font-family: 'Times New Roman', Arial, sans-serif;
 }
 
+nav {
+	margin-bottom: 50px;
+}
+
+nav .brand-logo.center {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+}
+
+h2 {
+	font-size: 2.5em;
+}
+
+h3 {
+	font-size: 2em;
+}
+
 .bids {
 	border: 1px solid #999;
 	margin-top: 20px;
@@ -98,11 +115,13 @@ button.completed, a.completed {
 
 .prj {
     border: 1px solid #6d3517;
-    margin: 10px 0;
-    /*border-radius: 50px;*/
     padding: 10px 25px;
     background: #fff;
     clear: both;
+}
+
+.prj p {
+	margin: 0;
 }
 
 .prj.top {
@@ -111,9 +130,9 @@ button.completed, a.completed {
 
 .prj > .price {
     font-size: 25px;
-    float: right;
     color: #6d3517;
     font-weight: bold;
+    margin: 0;
 }
 
 .prj > .title {
@@ -150,10 +169,17 @@ button.completed, a.completed {
 }
 
 .prj_create_proect {
-	margin-top: -43px
+	margin-top: -60px
 }
 
 .cats {
     list-style: none;
     padding: 0;
+}
+
+@media screen and (max-width: 993px) {
+	nav .brand-logo.center {
+	    -webkit-transform: translateX(-50%);
+	    transform: translateX(-50%);
+	}
 }

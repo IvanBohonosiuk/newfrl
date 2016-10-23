@@ -2,7 +2,7 @@
 @section('title') {{$project->title}} @stop
 @section('content')
 	<div class="row">
-		<div class="project col-md-9">
+		<div class="project col s12 m9 l9">
 			<h2>{{$project->title}}</h2>
 			<p class="price pull-right">${{$project->price}}</p>
 			<p class="categories">
@@ -39,26 +39,26 @@
 			        @if (Auth::user()->hasRole('Freelancer') && $project->status == 'Open')
 			        	<div class="form-bid">
 							<form role='form' action="{{ route('bid.create') }}" method="post">
-								<div class="form-group col-md-6">
+								<div class="form-group col s12 m6 l6">
 									<label for="price">Стоимость</label>
 									<input type="text" name="price" id="price" class="form-control" required="required">
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col s12 m6 l6">
 									<label for="termin">Срок выполнения</label>
 									<input type="text" name="termin" id="termin" class="form-control" required="required">
 								</div>
-								<div class="form-group col-md-12">
+								<div class="form-group col m12">
 									<label for="description">Комментарий</label>
 									<textarea class="form-control" name="description" id="description" rows="5" required="required"></textarea>
 								</div>
-								<div class="checkbox col-md-12">
+								<div class="checkbox col m12">
 									<label>
 										<input type="checkbox" name="private" value="1"> Скрыть заявку от других?
 									</label>
 								</div>
 								<input type="hidden" name="project_id" value="{{ $project->id }}">
 								<input type="hidden" name="_token" value="{{ Session::token() }}">
-								<button class="btn btn-primary" type="submit">Добавить</button>
+								<button class="btn" type="submit">Добавить</button>
 							</form>
 						</div>
 			        @endif
@@ -100,10 +100,14 @@
                                         </form>
 									@endif
 									@if (Auth::user() == $project->user && $project->status == 'Completed' && $project->freelancer->id == $bid->user->id)
-										<a href="{{ route('user.review', $bid->user->id) }}" class="btn btn-success pull-right completed">Оставить отзыв</a>
+										<a href="{{ route('user.review', $bid->user->id) }}" class="btn btn-success pull-right completed">Оставить отзыв о фрилансере</a>
+									@endif
+									@if (Auth::user() == $bid->user && $project->status == 'Completed')
+										<a href="{{ route('user.review', $project->user->id) }}" class="btn btn-success pull-right completed">Оставить отзыв о заказчике</a>
 									@endif
 									@if (Auth::user() == $bid->user)
-										<a href="#" class="btn-edit">Редактировать ставку</a>
+										{{-- <a href="#" class="btn-edit">Редактировать ставку</a> --}}
+										<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Редактировать ставку</a>
 										<a href="{{ route('bid.delete', ['bid_id' => $bid->id]) }}">Удалить ставку</a>
 									@endif
 								</div>
@@ -122,13 +126,46 @@
 				@endforeach
 			</div>
        </div>
-		<div class="col-md-3">
+		<div class="col s12 m3 l3">
 			<h2>Заказчик</h2>
 			<a href="{{ route('user.show', $project->user->id) }}"><img src="/uploads/avatars/{{ $project->user->image }}" class="avatar"></a>
 			<a href="{{ route('user.show', $project->user->id) }}"><p>{{ $project->user->first_name }} {{ $project->user->last_name }}</p></a>
 			<div class="meta">
 				<p class="rating">{{ $project->user->rating }}</p>
 			</div>
+		</div>
+	</div>
+
+	<!-- Modal Trigger -->
+	{{-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> --}}
+
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal">
+		<div class="modal-content">
+			<h4>Редактирование ставки</h4>
+			<form role='form' action="" method="post">
+				<div class="form-group">
+					<label for="price">Стоимость</label>
+					<input type="text" name="price" id="price-edit" class="form-control" required="required">
+				</div>
+				<div class="form-group">
+					<label for="termin">Срок выполнения</label>
+					<input type="text" name="termin" id="termin" class="form-control" required="required">
+				</div>
+				<div class="form-group">
+					<label for="description">Комментарий</label>
+					<textarea class="form-control" name="description" id="description" rows="5" required="required"></textarea>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="private" value="1"> Скрыть заявку от других?
+					</label>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Закрыть</a>
+			<a href="#!" class=" modal-action waves-effect waves-green btn-flat">Сохранить изменения</a>
 		</div>
 	</div>
 	<div class="modal fade" tabindex="-1" role="dialog" id="edit-modal">
@@ -168,7 +205,8 @@
 	</div><!-- /.modal -->
 
 	<script type="text/javascript">
-		if (Auth::user()->first_name == ) {}
+		
+		// if (Auth::user()->first_name == ) {}
 	</script>
 
 @stop
