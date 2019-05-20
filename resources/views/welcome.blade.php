@@ -8,8 +8,14 @@
 				@foreach ($freelancers as $freelancer)
 					@if ($freelancer->hasRole('Freelancer'))
 						<div class="freelancer col m3">
-							<a href="/users/{{ $freelancer->id }}"><img src="/uploads/avatars/{{ $freelancer->image }}" class="avatar freelancer_avartar"></a>
-							<a href="/users/{{ $freelancer->id }}"><h3>{{ $freelancer->first_name }} {{ $freelancer->last_name }}</h3></a>
+							<div class="card hoverable">
+								<div class="card-image waves-effect waves-block waves-light">
+									<a href="/users/{{ $freelancer->id }}"><img src="/uploads/avatars/{{ $freelancer->image }}" class="avatar freelancer_avartar activator"></a>
+								</div>
+								<div class="card-content">
+									<a href="/users/{{ $freelancer->id }}"><h3><span class="card-title activator grey-text text-darken-4">{{ $freelancer->first_name }} {{ $freelancer->last_name }}</span></h3></a>
+								</div>
+							</div>
 						</div>
 					@endif
 				@endforeach
@@ -23,8 +29,14 @@
 				@foreach ($freelancers as $freelancer)
 					@if ($freelancer->hasRole('Customer'))
 						<div class="freelancer col m3">
-							<a href="/users/{{ $freelancer->id }}"><img src="/uploads/avatars/{{ $freelancer->image }}" class="avatar freelancer_avartar"></a>
-							<a href="/users/{{ $freelancer->id }}"><h3>{{ $freelancer->first_name }} {{ $freelancer->last_name }}</h3></a>
+							<div class="card hoverable">
+								<div class="card-image waves-effect waves-block waves-light">
+									<a href="/users/{{ $freelancer->id }}"><img src="/uploads/avatars/{{ $freelancer->image }}" class="avatar freelancer_avartar activator"></a>
+								</div>
+								<div class="card-content">
+									<a href="/users/{{ $freelancer->id }}"><h3><span class="card-title activator grey-text text-darken-4">{{ $freelancer->first_name }} {{ $freelancer->last_name }}</span></h3></a>
+								</div>
+							</div>
 						</div>
 					@endif
 				@endforeach
